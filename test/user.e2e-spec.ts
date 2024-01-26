@@ -20,6 +20,23 @@ describe('UserController (e2e)', () => {
     await app.init();
   });
 
+  describe('/api/users (POST)', () => {
+    it('should successfully created a new user', async () => {
+      const { body } = await request(app.getHttpServer())
+        .post('/users')
+        .send(getMockUser())
+        .expect(HttpStatus.CREATED);
+
+      expect(body).toEqual(
+        expect.objectContaining({
+          id: expect.any(Number),
+          name: expect.any(String),
+          email: expect.any(String),
+        }),
+      );
+    });
+  });
+
   describe('/api/users (GET)', () => {
     it('should retrieve all users', async () => {
       const { body } = await request(app.getHttpServer())
@@ -38,23 +55,6 @@ describe('UserController (e2e)', () => {
           }),
         ]),
       });
-    });
-  });
-
-  describe('/api/users (POST)', () => {
-    it('should successfully created a new user', async () => {
-      const { body } = await request(app.getHttpServer())
-        .post('/users')
-        .send(getMockUser())
-        .expect(HttpStatus.CREATED);
-
-      expect(body).toEqual(
-        expect.objectContaining({
-          id: expect.any(Number),
-          name: expect.any(String),
-          email: expect.any(String),
-        }),
-      );
     });
   });
 });
