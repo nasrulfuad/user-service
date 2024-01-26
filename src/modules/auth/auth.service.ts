@@ -6,7 +6,7 @@ import {
 import { UserService } from '../user/services/user.service';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
-import { comparePassword } from 'src/utils/hash';
+import { comparePassword } from '../../utils/hash';
 
 @Injectable()
 export class AuthService {

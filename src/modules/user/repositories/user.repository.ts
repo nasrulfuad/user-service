@@ -1,4 +1,4 @@
-import { mapPagination } from 'src/utils/map-pagination';
+import { mapPagination } from '../../../utils/map-pagination';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserQuery } from '../dto/user-query';
 import { User } from '../entities/user.entity';

@@ -17,8 +17,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { ConflictDoc } from 'src/docs/conflict.doc';
-import { ValidationFailedDoc } from 'src/docs/validation-failed.doc';
+import { ConflictDoc } from '../../../docs/conflict.doc';
+import { ValidationFailedDoc } from '../../../docs/validation-failed.doc';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserQuery } from '../dto/user-query';
 import { User } from '../entities/user.entity';

@@ -3,7 +3,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { User } from '../entities/user.entity';
 import { UserRepository } from '../repositories/user.repository';
 import { UserQuery } from '../dto/user-query';
-import { mapPagination } from 'src/utils/map-pagination';
+import { mapPagination } from '../../../utils/map-pagination';
 
 @Injectable()
 export class UserService {

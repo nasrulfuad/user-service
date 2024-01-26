@@ -1,13 +1,13 @@
+import { ConflictException } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { prisma } from 'src/app/prisma';
-import { hashPassword } from 'src/utils/hash';
-import { mapPagination } from 'src/utils/map-pagination';
-import { userFactory } from 'src/utils/user-factory';
+import { prisma } from '../../../app/prisma';
+import { hashPassword } from '../../../utils/hash';
+import { mapPagination } from '../../../utils/map-pagination';
+import { userFactory } from '../../../utils/user-factory';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserQuery } from '../dto/user-query';
 import { User } from '../entities/user.entity';
 import { UserRepository } from './user.repository';
-import { ConflictException, NotFoundException } from '@nestjs/common';
 
 export class UserRepositoryImpl implements UserRepository {
   private prisma: PrismaClient;

@@ -19,12 +19,12 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { NotFoundDoc } from 'src/docs/notfound.doc';
-import { ValidationFailedDoc } from 'src/docs/validation-failed.doc';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { NotFoundDoc } from '../../docs/notfound.doc';
+import { ValidationFailedDoc } from '../../docs/validation-failed.doc';
+import { AuthGuard } from '../../guards/auth.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { UnauthorizedDoc } from 'src/docs/unauthorized.doc';
+import { UnauthorizedDoc } from '../../docs/unauthorized.doc';
 import { User } from '../user/entities/user.entity';
 
 @Controller('auth')
