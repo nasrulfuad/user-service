@@ -1,24 +1,35 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   HttpCode,
   HttpStatus,
   Post,
+  Request,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
 import {
   ApiAcceptedResponse,
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { NotFoundDoc } from 'src/docs/notfound.doc';
 import { ValidationFailedDoc } from 'src/docs/validation-failed.doc';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthService } from './auth.service';
+import { LoginDto } from './dto/login.dto';
+import { UnauthorizedDoc } from 'src/docs/unauthorized.doc';
+import { User } from '../user/entities/user.entity';
 
 @Controller('auth')
 @ApiTags('auth')
+@UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -52,7 +63,19 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get('me')
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
-  me() {}
+  @ApiUnauthorizedResponse({
+    description: 'UnauthorizedDoc error',
+    type: UnauthorizedDoc,
+  })
+  @ApiOkResponse({
+    description: 'Successfully retrieved current user data',
+    type: User,
+  })
+  me(@Request() req: any) {
+    return req.user;
+  }
 }

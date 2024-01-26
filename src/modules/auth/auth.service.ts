@@ -32,4 +32,9 @@ export class AuthService {
       accessToken: this.jwtService.sign({ email: user.email }),
     };
   }
+
+  async extractToken(token: string) {
+    const { email } = this.jwtService.decode(token);
+    return await this.userService.findByEmail(email);
+  }
 }
