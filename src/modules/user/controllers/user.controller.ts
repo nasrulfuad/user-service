@@ -1,28 +1,32 @@
 import {
+  Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
-  Post,
-  Body,
-  HttpStatus,
   HttpCode,
+  HttpStatus,
+  Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
-import { UserService } from '../services/user.service';
-import { CreateUserDto } from '../dto/create-user.dto';
 import {
   ApiBadRequestResponse,
   ApiBody,
+  ApiConflictResponse,
   ApiCreatedResponse,
-  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ConflictDoc } from 'src/docs/conflict.doc';
+import { ValidationFailedDoc } from 'src/docs/validation-failed.doc';
+import { CreateUserDto } from '../dto/create-user.dto';
 import { UserQuery } from '../dto/user-query';
 import { User } from '../entities/user.entity';
-import { BadRequestDoc } from 'src/docs/bad-request.doc';
+import { UserService } from '../services/user.service';
 
 @Controller('users')
 @ApiTags('users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -35,7 +39,11 @@ export class UserController {
   })
   @ApiBadRequestResponse({
     description: 'The record has not been created.',
-    type: BadRequestDoc,
+    type: ValidationFailedDoc,
+  })
+  @ApiConflictResponse({
+    description: 'The record is already exists',
+    type: ConflictDoc,
   })
   create(@Body() createUserDto: CreateUserDto): Promise<any> {
     return this.userService.create(createUserDto);

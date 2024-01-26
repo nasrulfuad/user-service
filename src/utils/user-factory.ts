@@ -1,4 +1,4 @@
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/modules/user/entities/user.entity';
 
 export function userFactory({
   id,
@@ -8,6 +8,7 @@ export function userFactory({
   id: number;
   name: string;
   email: string;
+  password?: string;
 }) {
-  return new User(id, name, email);
+  return new User(id, name, email, null);
 }

@@ -8,4 +8,6 @@ export abstract class UserRepository {
   abstract findAll(
     q: UserQuery,
   ): Promise<ReturnType<typeof mapPagination<User>>>;
+
+  abstract findByEmail(email: string): Promise<User>;
 }

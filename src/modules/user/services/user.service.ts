@@ -17,4 +17,8 @@ export class UserService {
   findAll(q: UserQuery): Promise<ReturnType<typeof mapPagination<User>>> {
     return this.userRepo.findAll(q);
   }
+
+  findByEmail(email: string): Promise<User> {
+    return this.userRepo.findByEmail(email);
+  }
 }
